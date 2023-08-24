@@ -1,0 +1,23 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "packages/*.ts",
+    "packages/**/*.ts",
+    "packages/**/**/*.ts",
+    "packages/**/*.vue",
+    "node_modules/tdesign-vue-next/global.d.ts",
+    "@types/*.ts",
+    "shims-vue.d.ts"
+  ],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
