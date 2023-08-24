@@ -1,14 +1,13 @@
 <template>
   <content-block-container>
-    <editable-text v-model:value='_title'></editable-text>
+    <editable-text v-model:value="_title"></editable-text>
     <br />
-    <editable-text v-model:value='_description'></editable-text>
+    <editable-text v-model:value="_description"></editable-text>
   </content-block-container>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { Input as TInput } from 'tdesign-vue-next';
 import ContentBlockContainer from './content-block-container.vue';
 import EditableText from '../components/editable-text.vue';
 
