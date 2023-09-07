@@ -18,7 +18,13 @@
         drag-class="dragging-element"
       >
         <template #item="{ element }">
-          <t-button variant="base" theme="default" class="option" :class="element.classList">
+          <t-button
+            variant="base"
+            theme="default"
+            class="option addable-survey-element"
+            :class="element.classList"
+            :data-type="element.type"
+          >
             <template #icon><component :is="element.icon"></component></template>
             {{ element.name }}
           </t-button>
@@ -50,21 +56,21 @@ const questionTypeGroups: Array<AddableQuestionTypeCategory> = [
         name: '单选',
         icon: ComponentRadioIcon,
         type: 'radioGroup',
-        classList: ['page-element'],
+        classList: ['page-element', 'question'],
         add: true
       },
       {
         name: '多选',
         icon: ComponentCheckboxIcon,
         type: 'checkbox',
-        classList: ['page-element'],
+        classList: ['page-element', 'question'],
         add: true
       },
       {
         name: '下拉',
         icon: ComponentDropdownIcon,
         type: 'dropdown',
-        classList: ['page-element'],
+        classList: ['page-element', 'question'],
         add: true
       }
     ]
@@ -76,7 +82,7 @@ const questionTypeGroups: Array<AddableQuestionTypeCategory> = [
         name: '填空',
         icon: ComponentInputIcon,
         type: 'singleText',
-        classList: ['page-element'],
+        classList: ['page-element', 'question'],
         add: true
       }
     ]

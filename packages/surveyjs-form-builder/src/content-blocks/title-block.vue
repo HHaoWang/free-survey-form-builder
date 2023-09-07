@@ -1,8 +1,8 @@
 <template>
   <content-block-container>
-    <editable-text v-model:value="_title"></editable-text>
+    <editable-text v-model:value="_title" font-size="16px"></editable-text>
     <br />
-    <editable-text v-model:value="_description"></editable-text>
+    <editable-text v-model:value="_description" font-size="16px"></editable-text>
   </content-block-container>
 </template>
 

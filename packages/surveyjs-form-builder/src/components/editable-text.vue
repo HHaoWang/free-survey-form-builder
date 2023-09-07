@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div v-if="!focused" @click="focused = true" class="text-area">{{ currentValue }}</div>
-    <div v-else><t-input @blur="focused = false" ref="input" v-model="currentValue"></t-input></div>
+    <div v-show="!focused" @click="focused = true" class="text-area" :style="style">
+      {{ currentValue }}
+    </div>
+    <div v-show="focused">
+      <t-input @blur="focused = false" ref="input" v-model="currentValue" :style="style"></t-input>
+    </div>
   </div>
 </template>
 
@@ -11,6 +15,7 @@ import { Input as TInput } from 'tdesign-vue-next';
 
 const props = defineProps<{
   value: string;
+  fontSize?: string;
 }>();
 
 const emits = defineEmits(['update:value']);
@@ -22,6 +27,17 @@ const currentValue = computed({
   set(newVal) {
     emits('update:value', newVal);
   }
+});
+
+const style = computed(() => {
+  if (!props.fontSize?.includes('!important')) {
+    return {
+      fontSize: props.fontSize + ' !important'
+    };
+  }
+  return {
+    fontSize: props.fontSize
+  };
 });
 
 const focused = ref(false);
@@ -38,8 +54,10 @@ watch(focused, (newVal) => {
 <style lang="less" scoped>
 .text-area {
   border: dashed 1px transparent;
-  line-height: 32px;
+  line-height: 30px;
   cursor: text;
+  font-size: 14px;
+  padding-left: var(--space);
 
   &:hover {
     border: dashed 1px #d6d6d6;

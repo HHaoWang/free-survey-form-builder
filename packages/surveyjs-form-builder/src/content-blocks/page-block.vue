@@ -1,5 +1,5 @@
 <template>
-  <content-block-container>
+  <content-block-container tabindex="0" class="page" @blur="onBlur">
     <div class="page-title">第{{ pageNumber + 1 }}页</div>
 
     <draggable
@@ -13,10 +13,15 @@
     >
       <template #item="{ element, index }">
         <component
-          :is="blockProvider.provide(element)"
+          :is="blockProvider.provideUIElement(element)"
           v-model:element="currentPage.elements[index]"
           :groupNumber="index"
           class="page-element"
+          @addNewPageElement="
+            (type:AddableQuestionType) => {
+              onAddNewPageElement(index, type);
+            }
+          "
         ></component>
       </template>
     </draggable>
@@ -26,17 +31,22 @@
 <script lang="ts" setup>
 import ContentBlockContainer from './content-block-container.vue';
 import { ContentBlockProvider } from '../content-block-provider';
-import { AbstractPage, QuestionGroup, SingleTextQuestion } from 'free-survey-core';
+import {
+  AbstractPage,
+  AbstractPageElement,
+  QuestionGroup,
+  SingleTextQuestion
+} from 'free-survey-core';
 import type { ChangeEvent } from 'vuedraggable';
 import draggable from 'vuedraggable';
-import type { AddableQuestionType } from '../types/question-type-group';
+import type { AddableQuestion, AddableQuestionType } from '../types/question-type-group';
 import { computed, ref } from 'vue';
 
 const props = defineProps<{
   page: AbstractPage;
   pageNumber: number;
 }>();
-const emits = defineEmits(['update:page']);
+const emits = defineEmits(['update:page', 'addNewPage']);
 const blockProvider = new ContentBlockProvider();
 
 const currentPage = computed({
@@ -60,7 +70,7 @@ const group = {
 const refreshKey = ref(0);
 const onAdd = (evt: ChangeEvent) => {
   if (evt.added && evt.added.element.add) {
-    const addableElement = evt.added.element as AddableQuestionType;
+    const addableElement = evt.added.element as AddableQuestion;
     if (addableElement.type === 'questionGroup') {
       currentPage.value.elements.splice(evt.added.newIndex, 1, new QuestionGroup());
     }
@@ -70,13 +80,45 @@ const onAdd = (evt: ChangeEvent) => {
     refreshKey.value++;
   }
 };
+
+const onBlur = (event: FocusEvent) => {
+  if (!event.relatedTarget) return;
+  if (!(event.relatedTarget as HTMLElement).classList.contains('addable-survey-element')) {
+    return;
+  }
+  const needAddedElementType: AddableQuestionType | undefined = (event.relatedTarget as HTMLElement)
+    .dataset.type as AddableQuestionType | undefined;
+  if (!needAddedElementType) return;
+  if (needAddedElementType === 'page') {
+    emits('addNewPage');
+    return;
+  }
+  const needAddedElement = blockProvider.provideDataObject(
+    needAddedElementType
+  ) as AbstractPageElement;
+  currentPage.value.elements.push(needAddedElement);
+};
+
+const onAddNewPageElement = (afterIndex: number, type: AddableQuestionType) => {
+  currentPage.value.elements.splice(
+    afterIndex + 1,
+    0,
+    blockProvider.provideDataObject(type) as AbstractPageElement
+  );
+};
 </script>
 
 <style lang="less" scoped>
+.page {
+  &:focus {
+    outline: solid 1px deepskyblue;
+  }
+}
 .page-title {
   margin-bottom: var(--space-2);
+  margin-left: var(--space);
 }
-.page-element {
+:deep(.page-element) {
   margin-bottom: var(--space-2);
 
   &:last-child {

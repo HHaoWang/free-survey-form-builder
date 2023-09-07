@@ -25,8 +25,8 @@
         <template #item="{ index }">
           <page-block
             :page-number="index"
+            @add-new-page="onAddNewPage(index)"
             v-model:page="survey.pages[index]"
-            class="page"
           ></page-block>
         </template>
       </draggable>
@@ -57,10 +57,12 @@ const group = {
   }
 };
 const onAdd = (evt: ChangeEvent) => {
-  console.log(evt);
   if (evt.added) {
     survey.value.pages.splice(evt.added.newIndex, 1, new Page());
   }
+};
+const onAddNewPage = (afterIndex: number) => {
+  survey.value.pages.splice(afterIndex + 1, 0, new Page());
 };
 </script>
 

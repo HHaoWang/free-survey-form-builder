@@ -8,7 +8,7 @@
 .content-block-container {
   background-color: white;
   border-radius: 4px;
-  padding: var(--space-4) 70px;
+  padding: var(--space-4);
   box-shadow: 0 0 10px 0 rgba(78, 89, 105, 0.1);
   margin-bottom: var(--space-2);
 }

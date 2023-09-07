@@ -3,13 +3,15 @@ import type { QuestionType } from 'free-survey-core';
 
 export interface AddableQuestionTypeCategory {
   name: string;
-  types: Array<AddableQuestionType>;
+  types: Array<AddableQuestion>;
 }
 
-export interface AddableQuestionType {
+export type AddableQuestionType = QuestionType | ('page' | 'questionGroup');
+
+export interface AddableQuestion {
   name: string;
   icon: Component;
   classList?: Array<string>;
   add?: boolean;
-  type: QuestionType | ('page' | 'questionGroup');
+  type: AddableQuestionType;
 }
