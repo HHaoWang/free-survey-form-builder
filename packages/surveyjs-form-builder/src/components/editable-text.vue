@@ -4,7 +4,13 @@
       {{ currentValue }}
     </div>
     <div v-show="focused">
-      <t-input @blur="focused = false" ref="input" v-model="currentValue" :style="style"></t-input>
+      <t-input
+        @blur="focused = false"
+        @click.stop=""
+        ref="input"
+        v-model="currentValue"
+        :style="style"
+      ></t-input>
     </div>
   </div>
 </template>

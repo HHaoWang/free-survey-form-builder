@@ -1,13 +1,17 @@
 <template>
-  <div tabindex="0" @blur="onBlur" class="single-text-question">
-    <div class="left">{{ groupNumber + 1 }}</div>
+  <element-with-operations-bar
+    :element-id="currentQuestion.id"
+    @click.stop="EventBus.emit('focusElement', currentQuestion)"
+    class="single-text-question question"
+  >
+    <div class="left">{{ groupNumber + 1 }}.</div>
     <div class="right">
       <editable-text v-model:value="currentQuestion.title"></editable-text>
       <div class="answer-input-area">
         <t-input input-class="answer-input" disabled placeholder="填写者回答区"></t-input>
       </div>
     </div>
-  </div>
+  </element-with-operations-bar>
 </template>
 
 <script lang="ts" setup>
@@ -15,13 +19,15 @@ import type { SingleTextQuestion } from 'free-survey-core';
 import { Input as TInput } from 'tdesign-vue-next';
 import { computed } from 'vue';
 import EditableText from '../../components/editable-text.vue';
-import type { AddableQuestionType } from '../../types/question-type-group';
+import { EventBus } from '../../scripts/event-bus';
+import ElementWithOperationsBar from '../../components/element-with-operations-bar.vue';
+
 const props = defineProps<{
   element: SingleTextQuestion;
   groupNumber: number;
 }>();
 
-const emits = defineEmits(['update:element', 'addNewPageElement']);
+const emits = defineEmits(['update:element']);
 
 const currentQuestion = computed({
   get() {
@@ -31,18 +37,6 @@ const currentQuestion = computed({
     emits('update:element', newVal);
   }
 });
-
-const onBlur = (event: FocusEvent) => {
-  if (!event.relatedTarget) return;
-  if (!(event.relatedTarget as HTMLElement).classList.contains('addable-survey-element')) {
-    return;
-  }
-  const needAddedElementType: AddableQuestionType | undefined = (event.relatedTarget as HTMLElement)
-    .dataset.type as AddableQuestionType | undefined;
-  if (!needAddedElementType || needAddedElementType === 'page') return;
-  emits('addNewPageElement', needAddedElementType);
-  return;
-};
 </script>
 
 <style lang="less" scoped>
@@ -50,9 +44,14 @@ const onBlur = (event: FocusEvent) => {
   padding: var(--space-2) var(--space-2) var(--space-2) 0;
   border-radius: 4px;
   display: flex;
+  position: relative;
 
-  &:focus {
-    outline: solid 1px deepskyblue;
+  &:hover:not(.focused) {
+    outline: dashed 1px deepskyblue;
+  }
+
+  &:hover .operations {
+    display: block;
   }
 
   .left {
@@ -61,6 +60,7 @@ const onBlur = (event: FocusEvent) => {
     border: dashed 1px transparent;
     font-size: 14px;
     text-align: right;
+    color: var(--serial-number-color);
   }
 
   .right {

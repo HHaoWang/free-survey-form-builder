@@ -24,6 +24,7 @@
             class="option addable-survey-element"
             :class="element.classList"
             :data-type="element.type"
+            @click="emits('addNewElement', element)"
           >
             <template #icon><component :is="element.icon"></component></template>
             {{ element.name }}
@@ -47,6 +48,8 @@ import {
   RootListIcon
 } from 'tdesign-icons-vue-next';
 import type { AddableQuestionTypeCategory } from './types/question-type-group';
+
+const emits = defineEmits(['addNewElement']);
 
 const questionTypeGroups: Array<AddableQuestionTypeCategory> = [
   {

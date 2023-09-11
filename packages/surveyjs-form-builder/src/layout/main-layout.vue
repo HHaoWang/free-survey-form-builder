@@ -7,7 +7,7 @@
       <div class="left-side">
         <slot name="left-side"></slot>
       </div>
-      <div class="content">
+      <div class="content" @click="EventBus.emit('focusElement', null)">
         <slot name="content"></slot>
       </div>
       <div class="right-side">
@@ -17,7 +17,9 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { EventBus } from '../scripts/event-bus';
+</script>
 
 <style lang="less" scoped>
 .main-layout {

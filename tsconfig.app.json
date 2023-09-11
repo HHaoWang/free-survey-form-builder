@@ -7,6 +7,7 @@
     "packages/*.ts",
     "packages/**/*.ts",
     "packages/**/**/*.ts",
+    "packages/**/**/**/*.ts",
     "packages/**/*.vue",
     "node_modules/tdesign-vue-next/global.d.ts",
     "@types/*.ts",
