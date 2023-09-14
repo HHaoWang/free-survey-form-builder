@@ -6,6 +6,7 @@
   >
     <div class="title">{{ questionTypeGroup.name }}</div>
     <div class="options">
+      <div v-if="questionTypeGroup.types.length <= 0" class="no-element-type-tip">暂无题型可用</div>
       <draggable
         :list="questionTypeGroup.types"
         item-key="name"
@@ -39,71 +40,13 @@
 import draggable from 'vuedraggable';
 
 import { Button as TButton } from 'tdesign-vue-next';
-import {
-  CatalogIcon,
-  ComponentCheckboxIcon,
-  ComponentDropdownIcon,
-  ComponentInputIcon,
-  ComponentRadioIcon,
-  RootListIcon
-} from 'tdesign-icons-vue-next';
 import type { AddableQuestionTypeCategory } from './types/question-type-group';
+import { ElementProvider } from './element-provider';
 
 const emits = defineEmits(['addNewElement']);
 
-const questionTypeGroups: Array<AddableQuestionTypeCategory> = [
-  {
-    name: '选择',
-    types: [
-      {
-        name: '单选',
-        icon: ComponentRadioIcon,
-        type: 'radioGroup',
-        classList: ['page-element', 'question'],
-        add: true
-      },
-      {
-        name: '多选',
-        icon: ComponentCheckboxIcon,
-        type: 'checkbox',
-        classList: ['page-element', 'question'],
-        add: true
-      },
-      {
-        name: '下拉',
-        icon: ComponentDropdownIcon,
-        type: 'dropdown',
-        classList: ['page-element', 'question'],
-        add: true
-      }
-    ]
-  },
-  {
-    name: '填空',
-    types: [
-      {
-        name: '填空',
-        icon: ComponentInputIcon,
-        type: 'singleText',
-        classList: ['page-element', 'question'],
-        add: true
-      }
-    ]
-  },
-  {
-    name: '布局',
-    types: [
-      { name: '页面', icon: CatalogIcon, type: 'page', classList: ['page'], add: true },
-      {
-        name: '题组',
-        icon: RootListIcon,
-        type: 'questionGroup',
-        classList: ['page-element'],
-        add: true
-      }
-    ]
-  }
-];
+const questionTypeGroups: Array<AddableQuestionTypeCategory> =
+  ElementProvider.getElementBankCategory();
 </script>
 
 <style lang="less" scoped>
@@ -119,6 +62,10 @@ const questionTypeGroups: Array<AddableQuestionTypeCategory> = [
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    .no-element-type-tip {
+      font-size: var(--font-size-small);
+      color: var(--font-color-secondnary);
+    }
 
     .option {
       --td-bg-color-component: var(--background-color);

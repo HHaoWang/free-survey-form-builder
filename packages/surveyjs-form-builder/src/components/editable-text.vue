@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <div v-show="!focused" @click="focused = true" class="text-area" :style="style">
+  <div class="editable-text" :style="style">
+    <div v-show="!focused" @click="focused = true" class="text-area">
       {{ currentValue }}
     </div>
     <div v-show="focused">
       <t-input
         @blur="focused = false"
-        @click.stop=""
         ref="input"
         v-model="currentValue"
-        :style="style"
+        class="editable-input"
       ></t-input>
     </div>
   </div>
@@ -36,6 +35,9 @@ const currentValue = computed({
 });
 
 const style = computed(() => {
+  if (!props.fontSize) {
+    return {};
+  }
   if (!props.fontSize?.includes('!important')) {
     return {
       fontSize: props.fontSize + ' !important'
@@ -58,15 +60,34 @@ watch(focused, (newVal) => {
 </script>
 
 <style lang="less" scoped>
+.editable-text {
+  font-size: 14px;
+}
 .text-area {
   border: dashed 1px transparent;
   line-height: 30px;
   cursor: text;
-  font-size: 14px;
   padding-left: var(--space);
+  height: 30px;
+  font-stretch: 100%;
 
   &:hover {
     border: dashed 1px #d6d6d6;
   }
+}
+
+:deep(.editable-input) {
+  .t-input {
+    font-size: inherit !important;
+    input {
+      font-size: inherit;
+    }
+  }
+}
+
+:deep(input) {
+  user-select: text;
+  font-family: var(--font-family);
+  font-size: inherit;
 }
 </style>

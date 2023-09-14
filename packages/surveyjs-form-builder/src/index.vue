@@ -12,8 +12,8 @@
     <template #content>
       <component :is="'style'" id="free-survey-form-builder-style-sheet"></component>
       <title-block
-        v-model:title="survey.title"
-        v-model:description="survey.description"
+        v-model:title="currentSurvey.title"
+        v-model:description="currentSurvey.description"
       ></title-block>
       <draggable
         :list="survey.pages"
@@ -27,32 +27,54 @@
         <template #item="{ index }">
           <page-block
             :page-number="index"
-            v-model:page="survey.pages[index]"
+            v-model:page="currentSurvey.pages[index]"
             :id="'FREE-SURVEY-' + survey.pages[index].id"
           ></page-block>
         </template>
       </draggable>
     </template>
+
+    <template #right-side>
+      <settings-area v-model:element="focusedElement"></settings-area>
+    </template>
   </main-layout>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import 'tdesign-vue-next/es/style/index.css';
 import { Divider as TDivider } from 'tdesign-vue-next';
 import { AbstractElement, Page, Survey } from 'free-survey-core';
-import TitleBlock from './content-blocks/title-block.vue';
 import MainLayout from './layout/main-layout.vue';
-import PageBlock from './content-blocks/page-block.vue';
 import QuestionBank from './question-bank.vue';
 import draggable from 'vuedraggable';
 import type { ChangeEvent } from 'vuedraggable';
 import { EventBus } from './scripts/event-bus';
 import { useRefresh } from './scripts/refresh';
 import { useEditSurvey } from './edit-survey';
+import SettingsArea from './settings-area.vue';
+import PageBlock from './elements/page-block/page-block.vue';
+import TitleBlock from './components/title-block.vue';
 
-const survey = ref(new Survey());
-survey.value.pages.push(new Page());
+const props = withDefaults(
+  defineProps<{
+    survey?: Survey;
+  }>(),
+  {
+    survey: () => new Survey()
+  }
+);
+
+const emits = defineEmits(['update:survey']);
+
+const currentSurvey = computed({
+  get() {
+    return props.survey;
+  },
+  set(newVal) {
+    emits('update:survey', newVal);
+  }
+});
 
 //region draggable
 const group = {
@@ -64,7 +86,7 @@ const group = {
 };
 const onDragAdd = (evt: ChangeEvent) => {
   if (evt.added) {
-    survey.value.pages.splice(evt.added.newIndex, 1, new Page());
+    currentSurvey.value.pages.splice(evt.added.newIndex, 1, new Page());
   }
 };
 
@@ -100,7 +122,7 @@ EventBus.on('focusElement', (newFocusedElement: AbstractElement | null) => {
 });
 //endregion
 
-const { onAddNewElement } = useEditSurvey(focusedElement, survey, refresh);
+const { onAddNewElement } = useEditSurvey(focusedElement, currentSurvey, refresh);
 </script>
 
 <style lang="less">
@@ -112,9 +134,14 @@ const { onAddNewElement } = useEditSurvey(focusedElement, survey, refresh);
   --space-3: 24px;
   --space-4: 32px;
   --operations-bar-height: 24px;
+  --font-family: Helvetica Neue, PingFang SC, Hiragino Sans GB, HeitiSC, Helvetica, Microsoft YaHei,
+    WenQuanYi Micro Hei, sans-serif;
+  --font-size-small: 14px;
+  --font-size-smaller: 12px;
+  --font-color-secondnary: var(--td-text-color-secondary);
+  --theme-primary-color: var(--td-brand-color);
 
-  font-family: Helvetica Neue, PingFang SC, Hiragino Sans GB, HeitiSC, Helvetica, Arial,
-    Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+  font-family: var(--font-family);
   line-height: 1.5;
   color: #484848;
   letter-spacing: 0;
@@ -129,11 +156,13 @@ const { onAddNewElement } = useEditSurvey(focusedElement, survey, refresh);
       top: 0;
       bottom: 0;
       background-color: var(--background-color);
+      z-index: 999;
     }
   }
 
   .dragging-element {
     opacity: 1;
+    background-color: white;
   }
 
   .focused {

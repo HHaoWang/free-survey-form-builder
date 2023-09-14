@@ -6,7 +6,10 @@
   >
     <div class="title">
       <div class="left">{{ groupNumber + 1 }}.</div>
-      <div class="right">题组</div>
+      <div class="right">
+        <div>{{ currentElement.title }}</div>
+        <div class="description">{{ currentElement.description }}</div>
+      </div>
     </div>
 
     <draggable
@@ -18,10 +21,11 @@
       @change="onDragAdd"
       :key="refreshKey"
       class="draggable-list"
+      handle=".move-icon"
     >
       <template #item="{ element, index }">
         <component
-          :is="blockProvider.provideUIElement(element)"
+          :is="ElementProvider.provideUIElement(element)"
           :id="'FREE-SURVEY-' + element.id"
           v-model:element="currentElement.questions[index]"
           :groupNumber="index"
@@ -33,25 +37,23 @@
 </template>
 
 <script lang="ts" setup>
-import { QuestionGroup, SingleTextQuestion } from 'free-survey-core';
-import { ContentBlockProvider } from '../content-block-provider';
+import { AbstractQuestionGroup, QuestionGroup, SingleTextQuestion } from 'free-survey-core';
 import { computed } from 'vue';
 import type { ChangeEvent } from 'vuedraggable';
 import draggable from 'vuedraggable';
-import type { AddableQuestion } from '../types/question-type-group';
-import { useRefresh } from '../scripts/refresh';
-import { EventBus } from '../scripts/event-bus';
-import ElementWithOperationsBar from '../components/element-with-operations-bar.vue';
+import { useRefresh } from '../../scripts/refresh';
+import type { AddableQuestion } from '../../types/question-type-group';
+import { ElementProvider } from '../../element-provider';
+import { EventBus } from '../../scripts/event-bus';
+import ElementWithOperationsBar from '../../components/element-with-operations-bar.vue';
+import type { ElementEmits, ElementProps } from '../../types/common';
 
-const props = defineProps<{
-  element: QuestionGroup;
-  groupNumber: number;
-}>();
-const emits = defineEmits(['update:element']);
+const props = defineProps<ElementProps>();
+const emits = defineEmits<ElementEmits>();
 
 const currentElement = computed({
   get() {
-    return props.element;
+    return props.element as AbstractQuestionGroup;
   },
   set(newVal) {
     emits('update:element', newVal);
@@ -77,8 +79,6 @@ const onDragAdd = (evt: ChangeEvent) => {
   }
 };
 //endregion
-
-const blockProvider = new ContentBlockProvider();
 </script>
 
 <style lang="less" scoped>
@@ -102,6 +102,11 @@ const blockProvider = new ContentBlockProvider();
     .right {
       flex: 1;
       margin-left: var(--space);
+
+      .description {
+        color: var(--font-color-secondnary);
+        margin-top: var(--space);
+      }
     }
   }
   &:focus {

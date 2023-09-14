@@ -1,4 +1,4 @@
-import { ContentBlockProvider } from './content-block-provider';
+import { ElementProvider } from './element-provider';
 import type { AddableQuestion } from './types/question-type-group';
 import {
   AbstractElement,
@@ -19,7 +19,6 @@ export function useEditSurvey(
   survey: Ref<Survey>,
   refresh: () => void
 ) {
-  const blockProvider = new ContentBlockProvider();
   const onAddNewElement = (addedElement: AddableQuestion) => {
     if (focusedElement.value === null) {
       if (addedElement.type === 'page') {
@@ -40,7 +39,7 @@ export function useEditSurvey(
         return;
       }
       (focusedElement.value as AbstractPage).elements.push(
-        blockProvider.provideDataObject(addedElement.type) as AbstractPageElement
+        ElementProvider.provideDataObject(addedElement.type) as AbstractPageElement
       );
       return;
     }
@@ -64,7 +63,7 @@ export function useEditSurvey(
         return;
       }
       (focusedElement.value as AbstractQuestionGroup).questions.push(
-        blockProvider.provideDataObject(addedElement.type) as AbstractQuestion
+        ElementProvider.provideDataObject(addedElement.type) as AbstractQuestion
       );
       return;
     }
@@ -90,7 +89,7 @@ export function useEditSurvey(
               (element) => element.id === focusedElement.value!.id
             ) + 1,
             0,
-            blockProvider.provideDataObject(addedElement.type) as AbstractPageElement
+            ElementProvider.provideDataObject(addedElement.type) as AbstractPageElement
           );
           refresh();
           return;
@@ -112,7 +111,7 @@ export function useEditSurvey(
       list.splice(
         list.findIndex((element) => element.id === focusedElement.value!.id) + 1,
         0,
-        blockProvider.provideDataObject(addedElement.type) as AbstractPageElement
+        ElementProvider.provideDataObject(addedElement.type) as AbstractPageElement
       );
       refresh();
       return;

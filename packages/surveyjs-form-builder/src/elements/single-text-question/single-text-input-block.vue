@@ -15,23 +15,21 @@
 </template>
 
 <script lang="ts" setup>
-import type { SingleTextQuestion } from 'free-survey-core';
 import { Input as TInput } from 'tdesign-vue-next';
 import { computed } from 'vue';
-import EditableText from '../../components/editable-text.vue';
 import { EventBus } from '../../scripts/event-bus';
 import ElementWithOperationsBar from '../../components/element-with-operations-bar.vue';
+import EditableText from '../../components/editable-text.vue';
+import type { ElementEmits, ElementProps } from '../../types/common';
+import type { SingleTextQuestion } from 'free-survey-core';
 
-const props = defineProps<{
-  element: SingleTextQuestion;
-  groupNumber: number;
-}>();
+const props = defineProps<ElementProps>();
 
-const emits = defineEmits(['update:element']);
+const emits = defineEmits<ElementEmits>();
 
 const currentQuestion = computed({
   get() {
-    return props.element;
+    return props.element as SingleTextQuestion;
   },
   set(newVal) {
     emits('update:element', newVal);

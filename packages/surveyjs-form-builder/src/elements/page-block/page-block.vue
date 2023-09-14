@@ -11,38 +11,39 @@
         drag-class="dragging-element"
         @change="onDragAdd"
         :key="refreshKey"
+        handle=".move-icon"
       >
         <template #item="{ element, index }">
           <component
-            :is="blockProvider.provideUIElement(element)"
+            :is="ElementProvider.provideUIElement(element)"
             v-model:element="currentPage.elements[index]"
             :groupNumber="index"
             class="page-element"
             :id="'FREE-SURVEY-' + element.id"
           ></component>
         </template>
-      </draggable> </content-block-container
-  ></element-with-operations-bar>
+      </draggable>
+    </content-block-container>
+  </element-with-operations-bar>
 </template>
 
 <script lang="ts" setup>
-import ContentBlockContainer from './content-block-container.vue';
-import { ContentBlockProvider } from '../content-block-provider';
-import { AbstractPage, QuestionGroup, SingleTextQuestion } from 'free-survey-core';
+import { AbstractPage, AbstractPageElement } from 'free-survey-core';
 import type { ChangeEvent } from 'vuedraggable';
 import draggable from 'vuedraggable';
-import type { AddableQuestion } from '../types/question-type-group';
 import { computed } from 'vue';
-import { useRefresh } from '../scripts/refresh';
-import { EventBus } from '../scripts/event-bus';
-import ElementWithOperationsBar from '../components/element-with-operations-bar.vue';
+import { useRefresh } from '../../scripts/refresh';
+import type { AddableQuestion } from '../../types/question-type-group';
+import { ElementProvider } from '../../element-provider';
+import { EventBus } from '../../scripts/event-bus';
+import ElementWithOperationsBar from '../../components/element-with-operations-bar.vue';
+import ContentBlockContainer from '../../components/content-block-container.vue';
 
 const props = defineProps<{
   page: AbstractPage;
   pageNumber: number;
 }>();
 const emits = defineEmits(['update:page']);
-const blockProvider = new ContentBlockProvider();
 
 const currentPage = computed({
   get() {
@@ -66,12 +67,11 @@ const { refresh, refreshKey } = useRefresh();
 const onDragAdd = (evt: ChangeEvent) => {
   if (evt.added && evt.added.element.add) {
     const addableElement = evt.added.element as AddableQuestion;
-    if (addableElement.type === 'questionGroup') {
-      currentPage.value.elements.splice(evt.added.newIndex, 1, new QuestionGroup());
-    }
-    if (addableElement.type === 'singleText') {
-      currentPage.value.elements.splice(evt.added.newIndex, 1, new SingleTextQuestion({}));
-    }
+    currentPage.value.elements.splice(
+      evt.added.newIndex,
+      1,
+      ElementProvider.provideDataObject(addableElement.type) as AbstractPageElement
+    );
     refresh();
   }
 };

@@ -6,12 +6,13 @@ export interface AddableQuestionTypeCategory {
   types: Array<AddableQuestion>;
 }
 
-export type AddableQuestionType = QuestionType | ('page' | 'questionGroup');
+export type QuestionLevel = 'page' | 'page-element' | 'question';
+export type AddableQuestionType = QuestionType | ('page' | 'questionGroup') | string;
 
 export interface AddableQuestion {
   name: string;
   icon: Component;
-  classList?: Array<string>;
+  classList: [QuestionLevel, ...QuestionLevel[]];
   add?: boolean;
   type: AddableQuestionType;
 }

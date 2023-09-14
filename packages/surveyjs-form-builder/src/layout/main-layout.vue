@@ -63,14 +63,15 @@ import { EventBus } from '../scripts/event-bus';
     }
 
     .right-side {
-      width: 258px;
-      height: 100%;
+      width: calc(258px - 2 * var(--space-3));
+      height: calc(100% - 2 * var(--space-3));
       background-color: white;
       position: absolute;
       right: 0;
       top: 0;
       border-left: 1px solid #eff1f4;
       border-right: 1px solid #eff1f4;
+      padding: var(--space-3);
     }
   }
 }

@@ -5,6 +5,7 @@
     @mouseleave="showOperationsBar = false"
   >
     <div class="operations" v-show="showOperationsBar" :style="style">
+      <Move1Icon class="move-icon" />
       <DeleteIcon @click="onClickDelete" />
     </div>
     <slot></slot>
@@ -12,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { DeleteIcon } from 'tdesign-icons-vue-next';
+import { DeleteIcon, Move1Icon } from 'tdesign-icons-vue-next';
 import { EventBus } from '../scripts/event-bus';
 import { computed, ref } from 'vue';
 const props = defineProps<{
@@ -43,6 +44,9 @@ const style = computed(() => {
 
     * {
       cursor: pointer;
+    }
+    * + * {
+      margin-left: var(--space);
     }
   }
 }
