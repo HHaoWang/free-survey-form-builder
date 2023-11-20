@@ -28,6 +28,7 @@ import {
   PageBlockUIElement,
   PageBlockSetting
 } from './elements/page-block';
+import type { DataObjectGenerator } from './types/common';
 
 export class ElementProvider {
   private static elementBlockMap: Map<AddableQuestionType, Component> = new Map<
@@ -213,7 +214,7 @@ export class ElementProvider {
     element: AddableQuestion,
     UIComponent: Component,
     settingComponent: Component,
-    dataObjectGenerator: () => AbstractElement
+    dataObjectGenerator: DataObjectGenerator
   ) {
     ElementProvider.registerElementBankType(categoryName, element);
     ElementProvider.registerUIElement(element.type, UIComponent);

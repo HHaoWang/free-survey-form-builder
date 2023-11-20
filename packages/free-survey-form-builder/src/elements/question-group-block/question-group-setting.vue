@@ -23,13 +23,13 @@ import type { AbstractElement, AbstractQuestionGroup } from 'free-survey-core';
 const props = defineProps<{
   settingElement: AbstractElement;
 }>();
-const emits = defineEmits(['update:questionGroup']);
+const emits = defineEmits(['update:settingElement']);
 const currentQuestionGroup = computed({
   get() {
     return props.settingElement as AbstractQuestionGroup;
   },
   set(value) {
-    emits('update:questionGroup', value);
+    emits('update:settingElement', value);
   }
 });
 </script>

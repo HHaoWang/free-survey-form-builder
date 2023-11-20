@@ -44,14 +44,6 @@ const currentQuestion = computed({
   display: flex;
   position: relative;
 
-  &:hover:not(.focused) {
-    outline: dashed 1px deepskyblue;
-  }
-
-  &:hover .operations {
-    display: block;
-  }
-
   .left {
     flex: 0 0 2em;
     line-height: 30px;
@@ -65,6 +57,7 @@ const currentQuestion = computed({
     flex: 1;
   }
 }
+
 .answer-input-area {
   margin-top: var(--space-2);
   margin-left: var(--space);

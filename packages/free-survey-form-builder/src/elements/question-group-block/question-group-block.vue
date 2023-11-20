@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { AbstractQuestionGroup, QuestionGroup, SingleTextQuestion } from 'free-survey-core';
+import { AbstractQuestionGroup, SingleTextQuestion } from 'free-survey-core';
 import { computed } from 'vue';
 import type { ChangeEvent } from 'vuedraggable';
 import draggable from 'vuedraggable';

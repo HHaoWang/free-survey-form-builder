@@ -1,13 +1,18 @@
-import type { App, Plugin } from 'vue';
+import type { App, Component, Plugin } from 'vue';
 
-import { SurveyjsFormBuilder } from './surveyjs-form-builder';
+import { FreeSurveyFormBuilder } from './free-survey-form-builder';
 
-const SurveyjsFormBuilderPlugin: Plugin = {
+const components: { [key: string]: Component } = {
+  FreeSurveyFormBuilder
+};
+
+const FreeSurveyFormBuilderPlugin: Plugin<[]> = {
   install(app: App) {
-    app.component('free-survey-form-builder', SurveyjsFormBuilder);
+    Object.keys(components).forEach((item) => {
+      app.component(item, components[item]);
+    });
   }
 };
 
-export default SurveyjsFormBuilderPlugin;
+export default FreeSurveyFormBuilderPlugin;
 
-export * from './surveyjs-form-builder';

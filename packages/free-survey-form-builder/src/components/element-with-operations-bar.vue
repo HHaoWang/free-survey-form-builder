@@ -37,10 +37,19 @@ const style = computed(() => {
 .element-with-operations-bar {
   position: relative;
 
+  &:hover:not(.focused) {
+    outline: dashed 1px deepskyblue;
+  }
+
+  &:hover .operations {
+    display: block;
+  }
+
   .operations {
     position: absolute;
     height: var(--operations-bar-height);
     line-height: var(--operations-bar-height);
+    z-index: 999;
 
     * {
       cursor: pointer;
