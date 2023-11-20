@@ -2,6 +2,14 @@
 
 Free Survey Form Builder 是一个 Free Survey Core 的问卷设计器 Vue3 实现，提供了可视化的问卷设计界面，采用了插件化的设计，能够轻松扩展题型、自行实现题型界面。
 
+![npm](https://img.shields.io/npm/dt/free-survey-form-builder?label=NPM)
+![GitHub License](https://img.shields.io/github/license/HHaoWang/free-survey-form-builder) ![GitHub language count](https://img.shields.io/github/languages/top/HHaoWang/free-survey-form-builder)
+![npm](https://img.shields.io/npm/v/free-survey-form-builder?label=Version)
+
+## 界面
+
+![界面预览图](readme-files/preview01.png)
+
 ## 安装
 
 ```shell

@@ -6,7 +6,8 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "readme-files"
   ],
   "type": "module",
   "main": "dist/lib/index.js",
