@@ -1,5 +1,9 @@
 <template>
-  <main-layout class="free-surveyjs-form-builder" id="free-survey-form-builder">
+  <main-layout
+    class="free-surveyjs-form-builder"
+    id="free-survey-form-builder"
+    :show-header="props.showHeader"
+  >
     <template #header>
       <span>{{ survey.title }}</span>
       <t-divider layout="vertical" />
@@ -59,9 +63,11 @@ import TitleBlock from './components/title-block.vue';
 const props = withDefaults(
   defineProps<{
     survey?: Survey;
+    showHeader?: boolean;
   }>(),
   {
-    survey: () => new Survey()
+    survey: () => new Survey(),
+    showHeader: true
   }
 );
 

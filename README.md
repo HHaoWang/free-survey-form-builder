@@ -24,11 +24,11 @@ main.ts ：
 import { createApp } from 'vue';
 import App from './App.vue';
 
-import FreeSurveyFormBuilder from 'free-survey-form-builder';
+import FreeSurveyFormBuilderPlugin from 'free-survey-form-builder';
 import 'free-survey-form-builder/style';
 
 const app = createApp(App);
-app.use(FreeSurveyFormBuilder);
+app.use(FreeSurveyFormBuilderPlugin);
 app.mount('#app');
 ```
 

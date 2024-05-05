@@ -1,6 +1,6 @@
 <template>
   <div class="main-layout">
-    <div class="builder-header">
+    <div class="builder-header" v-if="props.showHeader">
       <slot name="header"></slot>
     </div>
     <div class="builder-body">
@@ -19,12 +19,17 @@
 
 <script lang="ts" setup>
 import { EventBus } from '../scripts/event-bus';
+
+const props = defineProps<{
+  showHeader?: boolean;
+}>();
 </script>
 
 <style lang="less" scoped>
 .main-layout {
   height: 100%;
   width: 100%;
+  max-height: 100vh;
   background-color: var(--background-color);
 
   .builder-header {
@@ -36,18 +41,13 @@ import { EventBus } from '../scripts/event-bus';
   }
 
   .builder-body {
-    height: calc(100% - 41px - 2px);
-    position: relative;
-    display: inline-block;
+    display: flex;
     width: 100%;
+    max-height: calc(100vh - 43px);
 
     .left-side {
       width: calc(258px - var(--space-3) * 2);
-      height: calc(100% - var(--space-3) * 2);
       background-color: white;
-      position: absolute;
-      left: 0;
-      top: 0;
       padding: var(--space-3);
       border-left: 1px solid #eff1f4;
       border-right: 1px solid #eff1f4;
@@ -57,18 +57,13 @@ import { EventBus } from '../scripts/event-bus';
       width: calc(100% - 260px - 260px);
       padding: 0 var(--space-4);
       margin: var(--space-4) auto 0;
-      height: calc(100% - 43px);
       overflow-y: scroll;
       box-sizing: border-box;
     }
 
     .right-side {
       width: calc(258px - 2 * var(--space-3));
-      height: calc(100% - 2 * var(--space-3));
       background-color: white;
-      position: absolute;
-      right: 0;
-      top: 0;
       border-left: 1px solid #eff1f4;
       border-right: 1px solid #eff1f4;
       padding: var(--space-3);

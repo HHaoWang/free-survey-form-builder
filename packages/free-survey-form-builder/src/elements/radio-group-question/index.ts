@@ -14,7 +14,7 @@ export const RadioGroupQuestionType: AddableQuestion = {
 };
 
 export const RadioGroupQuestionDataObjectGenerator = () => {
-  return new RadioGroupQuestion({
+  return new RadioGroupQuestion(null, {
     title: '单选题'
   });
 };
