@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { AbstractQuestionGroup, SingleTextQuestion } from 'free-survey-core';
+import { type AbstractQuestion, AbstractQuestionGroup } from 'free-survey-core';
 import { computed } from 'vue';
 import type { ChangeEvent } from 'vuedraggable';
 import draggable from 'vuedraggable';
@@ -72,9 +72,11 @@ const { refresh, refreshKey } = useRefresh();
 const onDragAdd = (evt: ChangeEvent) => {
   if (evt.added && evt.added.element.add) {
     const addableElement = evt.added.element as AddableQuestion;
-    if (addableElement.type === 'singleText') {
-      currentElement.value.questions.splice(evt.added.newIndex, 1, new SingleTextQuestion({}));
-    }
+    currentElement.value.questions.splice(
+      evt.added.newIndex,
+      1,
+      ElementProvider.provideDataObject(addableElement.type) as AbstractQuestion
+    );
     refresh();
   }
 };
