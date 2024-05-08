@@ -42,11 +42,7 @@ export default defineConfig({
     }
   },
   plugins: [
-    vue({
-      script: {
-        defineModel: true
-      }
-    }),
+    vue(),
     vueJsx(),
     dtsPlugin({
       entryRoot: 'packages',
