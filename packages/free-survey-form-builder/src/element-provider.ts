@@ -4,30 +4,6 @@ import type { QuestionType } from 'free-survey-core';
 import type { AbstractQuestion } from 'free-survey-core';
 import type { AddableQuestion, AddableQuestionType } from './types/question-type-group';
 import type { AddableQuestionTypeCategory } from './types/question-type-group';
-import {
-  RadioGroupQuestionType,
-  RadioGroupQuestionUIElement,
-  RadioGroupQuestionSetting,
-  RadioGroupQuestionDataObjectGenerator
-} from './elements/radio-group-question';
-import {
-  SingleTextQuestionUIElement,
-  SingleTextQuestionType,
-  SingleTextQuestionDataObjectGenerator,
-  SingleTextQuestionSetting
-} from './elements/single-text-question';
-import {
-  QuestionBlockDataObjectGenerator,
-  QuestionGroupBlockUIElement,
-  QuestionGroupBlockType,
-  QuestionGroupBlockSetting
-} from './elements/question-group-block';
-import {
-  PageBlockDataObjectGenerator,
-  PageBlockType,
-  PageBlockUIElement,
-  PageBlockSetting
-} from './elements/page-block';
 import type { DataObjectGenerator } from './types/common';
 
 export class ElementProvider {
@@ -48,53 +24,6 @@ export class ElementProvider {
     AddableQuestionType,
     () => AbstractElement
   >();
-  private static instance: ElementProvider | null = null;
-
-  constructor() {
-    if (ElementProvider.instance === null) {
-      ElementProvider.initiate();
-      ElementProvider.instance = this;
-    }
-    return ElementProvider.instance!;
-  }
-
-  static {
-    if (ElementProvider.instance === null) {
-      ElementProvider.initiate();
-      ElementProvider.instance = this;
-    }
-  }
-
-  private static initiate() {
-    this.registerElement(
-      '选择',
-      RadioGroupQuestionType,
-      RadioGroupQuestionUIElement,
-      RadioGroupQuestionSetting,
-      RadioGroupQuestionDataObjectGenerator
-    );
-    this.registerElement(
-      '填空',
-      SingleTextQuestionType,
-      SingleTextQuestionUIElement,
-      SingleTextQuestionSetting,
-      SingleTextQuestionDataObjectGenerator
-    );
-    this.registerElement(
-      '布局',
-      PageBlockType,
-      PageBlockUIElement,
-      PageBlockSetting,
-      PageBlockDataObjectGenerator
-    );
-    this.registerElement(
-      '布局',
-      QuestionGroupBlockType,
-      QuestionGroupBlockUIElement,
-      QuestionGroupBlockSetting,
-      QuestionBlockDataObjectGenerator
-    );
-  }
 
   /**
    * 获取组件分类

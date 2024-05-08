@@ -46,7 +46,7 @@ const props = defineProps<{
     max-height: calc(100vh - 43px);
 
     .left-side {
-      width: calc(258px - var(--space-3) * 2);
+      width: 250px;
       background-color: white;
       padding: var(--space-3);
       border-left: 1px solid #eff1f4;
@@ -54,15 +54,14 @@ const props = defineProps<{
     }
 
     .content {
-      width: calc(100% - 260px - 260px);
-      padding: 0 var(--space-4);
-      margin: var(--space-4) auto 0;
+      flex: 1;
+      padding: var(--space-4) var(--space-4) var(--space-2);
       overflow-y: scroll;
       box-sizing: border-box;
     }
 
     .right-side {
-      width: calc(258px - 2 * var(--space-3));
+      width: 280px;
       background-color: white;
       border-left: 1px solid #eff1f4;
       border-right: 1px solid #eff1f4;

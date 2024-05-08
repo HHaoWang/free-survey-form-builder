@@ -1,11 +1,12 @@
-import type { AddableQuestion } from '../../types/question-type-group';
+import type { AddableQuestion, QuestionPlugin } from '../../types/question-type-group';
 import { ComponentRadioIcon } from 'tdesign-icons-vue-next';
 import { RadioGroupQuestion } from 'free-survey-core';
 
-export { default as RadioGroupQuestionUIElement } from './ui-element.vue';
-export { default as RadioGroupQuestionSetting } from './setting.vue';
+import { default as RadioGroupQuestionUIElement } from './ui-element.vue';
+import { default as RadioGroupQuestionSetting } from './setting.vue';
+import { ElementProvider } from '../../element-provider';
 
-export const RadioGroupQuestionType: AddableQuestion = {
+const RadioGroupQuestionType: AddableQuestion = {
   add: true,
   classList: ['page-element', 'question'],
   icon: ComponentRadioIcon,
@@ -13,8 +14,20 @@ export const RadioGroupQuestionType: AddableQuestion = {
   type: 'radioGroup'
 };
 
-export const RadioGroupQuestionDataObjectGenerator = () => {
+const RadioGroupQuestionDataObjectGenerator = () => {
   return new RadioGroupQuestion(null, {
     title: '单选题'
   });
+};
+
+export const RadioGroupQuestionPlugin: QuestionPlugin = {
+  install(): void {
+    ElementProvider.registerElement(
+      '选择',
+      RadioGroupQuestionType,
+      RadioGroupQuestionUIElement,
+      RadioGroupQuestionSetting,
+      RadioGroupQuestionDataObjectGenerator
+    );
+  }
 };

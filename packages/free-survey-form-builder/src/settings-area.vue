@@ -77,40 +77,12 @@ const elementTypeName = computed(() => {
     }
   }
 
-  :deep(.settings) {
+  .settings {
     margin-top: var(--space);
     font-size: var(--font-size-smaller);
 
     .subtitle {
       font-size: var(--font-size-small);
-    }
-
-    .setting-item {
-      display: flex;
-      align-items: start;
-      margin-bottom: var(--space);
-
-      .setting-item-title {
-        flex: 0 0 6em;
-        line-height: 24px;
-      }
-
-      .setting-item-value {
-        flex: 1;
-        line-height: 24px;
-
-        input {
-          width: 100%;
-          font-size: var(--font-size-smaller);
-        }
-
-        textarea {
-          width: 100%;
-          font-size: var(--font-size-smaller);
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-      }
     }
   }
 }

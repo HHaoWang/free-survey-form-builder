@@ -24,7 +24,7 @@ main.ts ：
 import { createApp } from 'vue';
 import App from './App.vue';
 
-import FreeSurveyFormBuilderPlugin from 'free-survey-form-builder';
+import { FreeSurveyFormBuilderPlugin } from 'free-survey-form-builder';
 import 'free-survey-form-builder/style';
 
 const app = createApp(App);

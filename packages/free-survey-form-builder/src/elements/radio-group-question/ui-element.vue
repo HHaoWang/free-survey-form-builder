@@ -1,45 +1,38 @@
 <template>
-  <element-with-operations-bar
-    :element-id="currentQuestion.id"
-    @click.stop="EventBus.emit('focusElement', currentQuestion)"
-    class="radio-group-question question"
-  >
-    <div class="left">{{ groupNumber + 1 }}.</div>
-    <div class="right">
-      <editable-text v-model:value="currentQuestion.title"></editable-text>
-      <div class="answer-input-area">
-        <div class="choice" v-for="(choice, index) in currentQuestion.choices" v-bind:key="index">
-          <icon-font name="close-circle" class="del-btn" @click="delChoice(index)" />
-          <icon-font name="circle" style="color: var(--font-color-secondnary)" />
-          <editable-text class="text" v-model:value="currentQuestion.choices[index].value" />
-        </div>
-        <div class="choice other-choice" v-if="currentQuestion.allowOther">
-          <icon-font name="close-circle" class="del-btn" />
-          <icon-font name="circle" style="color: var(--font-color-secondnary)" />
-          <div class="text">
-            <div>其它</div>
-            <t-input class="answer-input" disabled placeholder="填写者回答区"></t-input>
-          </div>
-        </div>
-        <t-link hover="color" @click="addNewChoice" class="add-choice choice">
-          <icon-font name="close-circle" class="del-btn" />
-          <icon-font name="add-circle" class="add-choice-icon" />
-          <div class="text add-choice-text">添加选项</div>
-        </t-link>
+  <basic-question-ui-element :group-number="props.groupNumber" :element="props.element">
+    <editable-text v-model:value="currentQuestion.title"></editable-text>
+    <editable-text v-model:value="currentQuestion.description"></editable-text>
+    <div class="answer-input-area">
+      <div class="choice" v-for="(choice, index) in currentQuestion.choices" v-bind:key="index">
+        <icon-font name="close-circle" class="del-btn" @click="delChoice(index)" />
+        <icon-font name="circle" style="color: var(--font-color-secondnary)" />
+        <editable-text class="text" v-model:value="currentQuestion.choices[index].value" />
       </div>
+      <div class="choice other-choice" v-if="currentQuestion.allowOther">
+        <icon-font name="close-circle" class="del-btn" />
+        <icon-font name="circle" style="color: var(--font-color-secondnary)" />
+        <div class="text">
+          <div>其它</div>
+          <t-input class="answer-input" :disabled="true" placeholder="填写者回答区"></t-input>
+        </div>
+      </div>
+      <t-link hover="color" @click="addNewChoice" class="add-choice choice">
+        <icon-font name="close-circle" class="del-btn" />
+        <icon-font name="add-circle" class="add-choice-icon" />
+        <div class="text add-choice-text">添加选项</div>
+      </t-link>
     </div>
-  </element-with-operations-bar>
+  </basic-question-ui-element>
 </template>
 
 <script lang="ts" setup>
-import { EventBus } from '../../scripts/event-bus';
-import ElementWithOperationsBar from '../../components/element-with-operations-bar.vue';
 import EditableText from '../../components/editable-text.vue';
 import { Input as TInput, Link as TLink } from 'tdesign-vue-next';
 import { IconFont } from 'tdesign-icons-vue-next';
 import { computed } from 'vue';
 import type { ElementEmits, ElementProps } from '../../types/common';
 import type { RadioGroupQuestion } from 'free-survey-core';
+import BasicQuestionUiElement from '../../components/basic-question-ui-element.vue';
 
 const props = defineProps<ElementProps>();
 
@@ -64,26 +57,6 @@ const delChoice = (index: number) => {
 </script>
 
 <style lang="less" scoped>
-.radio-group-question {
-  padding: var(--space-2) var(--space-2) var(--space-2) 0;
-  border-radius: 4px;
-  display: flex;
-  position: relative;
-
-  .left {
-    flex: 0 0 2em;
-    line-height: 30px;
-    border: dashed 1px transparent;
-    font-size: 14px;
-    text-align: right;
-    color: var(--serial-number-color);
-  }
-
-  .right {
-    flex: 1;
-  }
-}
-
 .choice {
   display: flex;
   margin-bottom: var(--space);

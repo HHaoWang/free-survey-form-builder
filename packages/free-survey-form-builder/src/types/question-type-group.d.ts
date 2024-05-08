@@ -16,3 +16,7 @@ export interface AddableQuestion {
   add?: boolean;
   type: AddableQuestionType;
 }
+
+export interface QuestionPlugin {
+  install(): void;
+}

@@ -59,15 +59,18 @@ import { useEditSurvey } from './edit-survey';
 import SettingsArea from './settings-area.vue';
 import PageBlock from './elements/page-block/page-block.vue';
 import TitleBlock from './components/title-block.vue';
+import { registerDefaultQuestion } from './scripts/registerDefaultQuestion';
 
 const props = withDefaults(
   defineProps<{
     survey?: Survey;
     showHeader?: boolean;
+    useDefaultQuestions?: boolean;
   }>(),
   {
     survey: () => new Survey(),
-    showHeader: true
+    showHeader: true,
+    useDefaultQuestions: true
   }
 );
 
@@ -129,6 +132,10 @@ EventBus.on('focusElement', (newFocusedElement: AbstractElement | null) => {
 //endregion
 
 const { onAddNewElement } = useEditSurvey(focusedElement, currentSurvey, refresh);
+
+if (props.useDefaultQuestions) {
+  registerDefaultQuestion();
+}
 </script>
 
 <style lang="less">

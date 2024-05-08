@@ -1,11 +1,12 @@
-import type { AddableQuestion } from '../../types/question-type-group';
+import type { AddableQuestion, QuestionPlugin } from '../../types/question-type-group';
 import { CatalogIcon } from 'tdesign-icons-vue-next';
 import { Page } from 'free-survey-core';
+import { ElementProvider } from '../../element-provider';
 
-export { default as PageBlockUIElement } from './page-block.vue';
-export { default as PageBlockSetting } from './setting.vue';
+import { default as PageBlockUIElement } from './page-block.vue';
+import { default as PageBlockSetting } from './setting.vue';
 
-export const PageBlockType: AddableQuestion = {
+const PageBlockType: AddableQuestion = {
   name: '页面',
   icon: CatalogIcon,
   type: 'page',
@@ -13,6 +14,18 @@ export const PageBlockType: AddableQuestion = {
   add: true
 };
 
-export const PageBlockDataObjectGenerator = () => {
+const PageBlockDataObjectGenerator = () => {
   return new Page();
+};
+
+export const PageBlockPlugin: QuestionPlugin = {
+  install(): void {
+    ElementProvider.registerElement(
+      '布局',
+      PageBlockType,
+      PageBlockUIElement,
+      PageBlockSetting,
+      PageBlockDataObjectGenerator
+    );
+  }
 };
