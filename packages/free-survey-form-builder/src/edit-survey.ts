@@ -126,6 +126,7 @@ export function useEditSurvey(
       cancelBtn: '取消',
       onConfirm: () => {
         survey.value.deleteElement(id);
+        focusedElement.value = null;
         refresh();
         confirmBtn.destroy();
       }

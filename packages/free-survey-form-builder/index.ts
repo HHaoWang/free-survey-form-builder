@@ -18,4 +18,21 @@ export { PageBlockPlugin } from './src/elements/page-block';
 export { QuestionGroupPlugin } from './src/elements/question-group-block';
 export { SingleTextQuestionPlugin } from './src/elements/single-text-question';
 export { RadioGroupQuestionPlugin } from './src/elements/radio-group-question';
+export { DropdownQuestionPlugin } from './src/elements/dropdown-question';
+export { CheckBoxQuestionPlugin } from './src/elements/check-box-question';
+export { SplitterPlugin } from './src/elements/splitter';
+export type {
+  QuestionPlugin,
+  AddableQuestion,
+  AddableQuestionType,
+  AddableQuestionTypeCategory,
+  QuestionLevel
+} from './src/types/question-type-group';
+export type {
+  SettingElementProps,
+  SettingElementEmits,
+  ElementProps,
+  ElementEmits,
+  DataObjectGenerator
+} from './src/types/common';
 export { ElementProvider } from './src/element-provider';

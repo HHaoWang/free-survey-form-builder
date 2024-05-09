@@ -19,9 +19,10 @@ const QuestionBlockDataObjectGenerator = () => {
 };
 
 export const QuestionGroupPlugin: QuestionPlugin = {
-  install() {
+  install(categoryName: string | undefined = undefined): void {
+    categoryName ??= '布局';
     ElementProvider.registerElement(
-      '布局',
+      categoryName,
       QuestionGroupBlockType,
       QuestionGroupBlockUIElement,
       QuestionGroupBlockSetting,

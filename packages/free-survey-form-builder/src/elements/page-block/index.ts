@@ -19,9 +19,10 @@ const PageBlockDataObjectGenerator = () => {
 };
 
 export const PageBlockPlugin: QuestionPlugin = {
-  install(): void {
+  install(categoryName: string | undefined = undefined): void {
+    categoryName ??= '布局';
     ElementProvider.registerElement(
-      '布局',
+      categoryName,
       PageBlockType,
       PageBlockUIElement,
       PageBlockSetting,

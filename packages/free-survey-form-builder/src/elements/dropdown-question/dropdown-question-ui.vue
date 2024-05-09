@@ -1,16 +1,16 @@
 <template>
-  <basic-question-ui-element :group-number="props.groupNumber" :element="props.element">
-    <editable-text v-model:value="currentQuestion.title"></editable-text>
-    <editable-text v-model:value="currentQuestion.description"></editable-text>
+  <basic-question-ui-element :group-number="props.groupNumber" :element="currentQuestion">
+    <editable-text v-model:value="currentQuestion.title" />
+    <editable-text v-model:value="currentQuestion.description" />
     <div class="answer-input-area">
       <div class="choice" v-for="(choice, index) in currentQuestion.choices" v-bind:key="index">
         <icon-font name="close-circle" class="del-btn" @click="delChoice(index)" />
-        <icon-font name="circle" style="color: var(--font-color-secondnary)" />
+        <icon-font name="caret-right-small" style="color: var(--font-color-secondnary)" />
         <editable-text class="text" v-model:value="currentQuestion.choices[index].value" />
       </div>
       <div class="choice other-choice" v-if="currentQuestion.allowOther">
         <icon-font name="close-circle" class="del-btn" />
-        <icon-font name="circle" style="color: var(--font-color-secondnary)" />
+        <icon-font name="caret-right-small" style="color: var(--font-color-secondnary)" />
         <div class="text">
           <div>其它</div>
           <t-input class="answer-input" :disabled="true" placeholder="填写者回答区"></t-input>
@@ -21,26 +21,25 @@
         <icon-font name="add-circle" class="add-choice-icon" />
         <div class="text add-choice-text">添加选项</div>
       </t-link>
-    </div>
-  </basic-question-ui-element>
+    </div></basic-question-ui-element
+  >
 </template>
 
 <script lang="ts" setup>
-import EditableText from '../../components/editable-text.vue';
-import { Input as TInput, Link as TLink } from 'tdesign-vue-next';
-import { IconFont } from 'tdesign-icons-vue-next';
 import { computed } from 'vue';
-import type { ElementEmits, ElementProps } from '../../types/common';
-import type { RadioGroupQuestion } from 'free-survey-core';
 import BasicQuestionUiElement from '../../components/basic-question-ui-element.vue';
-
+import type { ElementEmits, ElementProps } from '../../types/common';
+import type { DropdownQuestion } from 'free-survey-core';
+import { IconFont } from 'tdesign-icons-vue-next';
+import { Input as TInput, Link as TLink } from 'tdesign-vue-next';
+import EditableText from '../../components/editable-text.vue';
 const props = defineProps<ElementProps>();
 
 const emits = defineEmits<ElementEmits>();
 
 const currentQuestion = computed({
   get() {
-    return props.element as RadioGroupQuestion;
+    return props.element as DropdownQuestion;
   },
   set(newVal) {
     emits('update:element', newVal);
@@ -112,15 +111,6 @@ const delChoice = (index: number) => {
     &:hover .add-choice-icon {
       color: unset;
     }
-  }
-}
-
-:deep(.answer-input) {
-  width: 45%;
-  cursor: default;
-
-  & input {
-    cursor: default !important;
   }
 }
 </style>

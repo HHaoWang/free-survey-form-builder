@@ -45,21 +45,21 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed } from 'vue';
 import 'tdesign-vue-next/es/style/index.css';
 import { Divider as TDivider } from 'tdesign-vue-next';
-import { AbstractElement, Page, Survey } from 'free-survey-core';
+import { Page, Survey } from 'free-survey-core';
 import MainLayout from './layout/main-layout.vue';
 import QuestionBank from './question-bank.vue';
 import draggable from 'vuedraggable';
 import type { ChangeEvent } from 'vuedraggable';
-import { EventBus } from './scripts/event-bus';
 import { useRefresh } from './scripts/refresh';
 import { useEditSurvey } from './edit-survey';
 import SettingsArea from './settings-area.vue';
 import PageBlock from './elements/page-block/page-block.vue';
 import TitleBlock from './components/title-block.vue';
 import { registerDefaultQuestion } from './scripts/registerDefaultQuestion';
+import { useFocusManage } from './scripts/focusManage';
 
 const props = withDefaults(
   defineProps<{
@@ -102,34 +102,7 @@ const onDragAdd = (evt: ChangeEvent) => {
 const { refresh, refreshKey } = useRefresh();
 //endregion
 
-//region focusManage
-const focusedElement = ref<AbstractElement | null>(null);
-let styleSheet: CSSStyleSheet | null = null;
-onMounted(() => {
-  styleSheet = (document.getElementById('free-survey-form-builder-style-sheet') as HTMLStyleElement)
-    .sheet;
-});
-let addedStyleIndex: number | undefined = 0;
-watch(
-  () => focusedElement.value,
-  (newVal, oldValue) => {
-    if (oldValue !== null) {
-      if (addedStyleIndex !== undefined) {
-        styleSheet?.deleteRule(addedStyleIndex);
-      }
-    }
-    if (newVal !== null) {
-      addedStyleIndex = styleSheet?.insertRule(
-        `#FREE-SURVEY-${newVal.id} {outline:solid 1px deepskyblue;}`,
-        0
-      );
-    }
-  }
-);
-EventBus.on('focusElement', (newFocusedElement: AbstractElement | null) => {
-  focusedElement.value = newFocusedElement;
-});
-//endregion
+const { focusedElement } = useFocusManage();
 
 const { onAddNewElement } = useEditSurvey(focusedElement, currentSurvey, refresh);
 

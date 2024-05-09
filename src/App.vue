@@ -1,10 +1,10 @@
 <template>
   <div class="panel">
-    <free-survey-form-builder v-model:survey="survey" class="form-builder" />
+    <free-survey-form-builder :survey="survey" class="form-builder" />
     <div>
       <t-button @click="exportSurvey">复制</t-button>
     </div>
-    <div>{{ survey.toJSON() }}</div>
+    <div>{{ survey }}</div>
   </div>
 </template>
 

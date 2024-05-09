@@ -17,7 +17,7 @@ import { DeleteIcon, Move1Icon } from 'tdesign-icons-vue-next';
 import { EventBus } from '../scripts/event-bus';
 import { computed, ref } from 'vue';
 const props = defineProps<{
-  elementId?: string;
+  elementId: string;
   marginRight?: string;
   marginBottom?: string;
 }>();

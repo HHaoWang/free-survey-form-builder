@@ -17,7 +17,7 @@
 import { type Ref, toRef } from 'vue';
 import { EventBus } from '../scripts/event-bus';
 import ElementWithOperationsBar from './element-with-operations-bar.vue';
-import type { ElementEmits, ElementProps } from '../types/common';
+import type { ElementProps } from '../types/common';
 import type { AbstractQuestion } from 'free-survey-core';
 
 const props = defineProps<ElementProps>();

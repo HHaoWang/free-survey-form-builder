@@ -18,5 +18,5 @@ export interface AddableQuestion {
 }
 
 export interface QuestionPlugin {
-  install(): void;
+  install(categoryName: string | undefined = undefined): void;
 }

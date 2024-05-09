@@ -20,9 +20,10 @@ const SingleTextQuestionDataObjectGenerator: DataObjectGenerator = () => {
 };
 
 export const SingleTextQuestionPlugin: QuestionPlugin = {
-  install() {
+  install(categoryName: string | undefined = undefined): void {
+    categoryName ??= '填空';
     ElementProvider.registerElement(
-      '填空',
+      categoryName,
       SingleTextQuestionType,
       SingleTextQuestionUIElement,
       SingleTextQuestionSetting,

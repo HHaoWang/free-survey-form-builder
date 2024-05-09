@@ -1,16 +1,16 @@
 <template>
-  <basic-question-ui-element :group-number="props.groupNumber" :element="props.element">
+  <basic-question-ui-element :group-number="props.groupNumber" :element="currentQuestion">
     <editable-text v-model:value="currentQuestion.title"></editable-text>
     <editable-text v-model:value="currentQuestion.description"></editable-text>
     <div class="answer-input-area">
       <div class="choice" v-for="(choice, index) in currentQuestion.choices" v-bind:key="index">
         <icon-font name="close-circle" class="del-btn" @click="delChoice(index)" />
-        <icon-font name="circle" style="color: var(--font-color-secondnary)" />
+        <icon-font name="rectangle" style="color: var(--font-color-secondnary)" />
         <editable-text class="text" v-model:value="currentQuestion.choices[index].value" />
       </div>
       <div class="choice other-choice" v-if="currentQuestion.allowOther">
         <icon-font name="close-circle" class="del-btn" />
-        <icon-font name="circle" style="color: var(--font-color-secondnary)" />
+        <icon-font name="rectangle" style="color: var(--font-color-secondnary)" />
         <div class="text">
           <div>其它</div>
           <t-input class="answer-input" :disabled="true" placeholder="填写者回答区"></t-input>
@@ -26,13 +26,13 @@
 </template>
 
 <script lang="ts" setup>
-import EditableText from '../../components/editable-text.vue';
-import { Input as TInput, Link as TLink } from 'tdesign-vue-next';
-import { IconFont } from 'tdesign-icons-vue-next';
 import { computed } from 'vue';
-import type { ElementEmits, ElementProps } from '../../types/common';
-import type { RadioGroupQuestion } from 'free-survey-core';
 import BasicQuestionUiElement from '../../components/basic-question-ui-element.vue';
+import type { ElementEmits, ElementProps } from '../../types/common';
+import type { CheckBoxQuestion } from 'free-survey-core';
+import EditableText from '../../components/editable-text.vue';
+import { IconFont } from 'tdesign-icons-vue-next';
+import { Input as TInput, Link as TLink } from 'tdesign-vue-next';
 
 const props = defineProps<ElementProps>();
 
@@ -40,7 +40,7 @@ const emits = defineEmits<ElementEmits>();
 
 const currentQuestion = computed({
   get() {
-    return props.element as RadioGroupQuestion;
+    return props.element as CheckBoxQuestion;
   },
   set(newVal) {
     emits('update:element', newVal);
@@ -112,15 +112,6 @@ const delChoice = (index: number) => {
     &:hover .add-choice-icon {
       color: unset;
     }
-  }
-}
-
-:deep(.answer-input) {
-  width: 45%;
-  cursor: default;
-
-  & input {
-    cursor: default !important;
   }
 }
 </style>

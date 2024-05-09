@@ -21,9 +21,10 @@ const RadioGroupQuestionDataObjectGenerator = () => {
 };
 
 export const RadioGroupQuestionPlugin: QuestionPlugin = {
-  install(): void {
+  install(categoryName: string | undefined = undefined): void {
+    categoryName ??= '选择';
     ElementProvider.registerElement(
-      '选择',
+      categoryName,
       RadioGroupQuestionType,
       RadioGroupQuestionUIElement,
       RadioGroupQuestionSetting,
