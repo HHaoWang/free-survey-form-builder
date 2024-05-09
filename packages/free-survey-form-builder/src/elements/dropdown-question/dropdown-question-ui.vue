@@ -8,14 +8,6 @@
         <icon-font name="caret-right-small" style="color: var(--font-color-secondnary)" />
         <editable-text class="text" v-model:value="currentQuestion.choices[index].value" />
       </div>
-      <div class="choice other-choice" v-if="currentQuestion.allowOther">
-        <icon-font name="close-circle" class="del-btn" />
-        <icon-font name="caret-right-small" style="color: var(--font-color-secondnary)" />
-        <div class="text">
-          <div>其它</div>
-          <t-input class="answer-input" :disabled="true" placeholder="填写者回答区"></t-input>
-        </div>
-      </div>
       <t-link hover="color" @click="addNewChoice" class="add-choice choice">
         <icon-font name="close-circle" class="del-btn" />
         <icon-font name="add-circle" class="add-choice-icon" />
@@ -31,7 +23,7 @@ import BasicQuestionUiElement from '../../components/basic-question-ui-element.v
 import type { ElementEmits, ElementProps } from '../../types/common';
 import type { DropdownQuestion } from 'free-survey-core';
 import { IconFont } from 'tdesign-icons-vue-next';
-import { Input as TInput, Link as TLink } from 'tdesign-vue-next';
+import { Link as TLink } from 'tdesign-vue-next';
 import EditableText from '../../components/editable-text.vue';
 const props = defineProps<ElementProps>();
 
