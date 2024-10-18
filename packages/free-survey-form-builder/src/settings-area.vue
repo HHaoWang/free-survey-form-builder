@@ -53,9 +53,11 @@ const elementTypeName = computed(() => {
 
 <style lang="less" scoped>
 .setting-area {
-  min-height: 100%;
+  height: 100%;
   --td-brand-color: var(--theme-primary-color);
   user-select: none;
+  display: flex;
+  flex-direction: column;
 
   .title {
     line-height: 2em;
@@ -63,12 +65,11 @@ const elementTypeName = computed(() => {
   }
 
   .empty-status {
-    height: 100%;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transform: translateY(45%);
     color: var(--font-color-secondnary);
     font-size: var(--font-size-small);
 

@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <free-survey-form-builder :survey="survey" class="form-builder" />
+    <free-survey-form-builder :survey="survey" class="form-builder"/>
     <div>
       <t-button @click="exportSurvey">复制</t-button>
     </div>
@@ -12,6 +12,8 @@
 import { ref } from 'vue';
 import { Survey } from 'free-survey-core';
 import { Button as TButton, DialogPlugin } from 'tdesign-vue-next';
+import { FreeSurveyFormBuilder } from '../packages';
+
 const survey = ref(new Survey());
 const exportSurvey = () => {
   const text = survey.value.exportToJson();
@@ -32,7 +34,7 @@ body {
 
 .panel {
   .form-builder {
-    height: 50vh;
+    height: 100vh;
   }
 }
 </style>

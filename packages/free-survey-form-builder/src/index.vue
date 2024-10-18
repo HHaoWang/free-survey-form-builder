@@ -5,8 +5,12 @@
     :show-header="props.showHeader"
   >
     <template #header>
-      <span>{{ survey.title }}</span>
-      <t-divider layout="vertical" />
+      <slot name="header-logo" />
+      <span v-if="showSurveyTitle">{{ survey.title }}</span>
+      <t-divider layout="vertical" v-if="showSurveyTitleRightDivider" />
+      <slot name="header-left" />
+      <div class="header-space" />
+      <slot name="header-right" />
     </template>
 
     <template #left-side>
@@ -66,11 +70,15 @@ const props = withDefaults(
     survey?: Survey;
     showHeader?: boolean;
     useDefaultQuestions?: boolean;
+    showSurveyTitle?: boolean;
+    showSurveyTitleRightDivider?: boolean;
   }>(),
   {
     survey: () => new Survey(),
     showHeader: true,
-    useDefaultQuestions: true
+    useDefaultQuestions: true,
+    showSurveyTitle: true,
+    showSurveyTitleRightDivider: true
   }
 );
 
@@ -126,11 +134,20 @@ if (props.useDefaultQuestions) {
   --font-size-smaller: 12px;
   --font-color-secondnary: var(--td-text-color-secondary);
   --theme-primary-color: var(--td-brand-color);
+  --header-height: 27px;
+  --header-padding-top: 7px;
+  --header-padding-bottom: 7px;
 
   font-family: var(--font-family);
   line-height: 1.5;
   color: #484848;
   letter-spacing: 0;
+
+  .header {
+    &-space {
+      flex-grow: 1;
+    }
+  }
 
   .dragging-ghost-element {
     position: relative;
