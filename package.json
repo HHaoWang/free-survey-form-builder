@@ -1,6 +1,6 @@
 {
   "name": "free-survey-form-builder",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "An implementation of survey designer/form builder basing free-survey-core.",
   "repository": {
     "type": "git",

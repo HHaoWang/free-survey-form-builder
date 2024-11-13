@@ -64,6 +64,7 @@ import PageBlock from './elements/page-block/page-block.vue';
 import TitleBlock from './components/title-block.vue';
 import { registerDefaultQuestion } from './scripts/registerDefaultQuestion';
 import { useFocusManage } from './scripts/focusManage';
+import { ElementProvider } from './element-provider';
 
 const props = withDefaults(
   defineProps<{
@@ -115,6 +116,7 @@ const { focusedElement } = useFocusManage();
 const { onAddNewElement } = useEditSurvey(focusedElement, currentSurvey, refresh);
 
 if (props.useDefaultQuestions) {
+  ElementProvider.clearElements();
   registerDefaultQuestion();
 }
 </script>

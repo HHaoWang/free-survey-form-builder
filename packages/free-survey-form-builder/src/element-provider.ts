@@ -151,4 +151,12 @@ export class ElementProvider {
     ElementProvider.registerElementName(element.type, element.name);
     ElementProvider.registerDataObject(element.type, dataObjectGenerator);
   }
+
+  public static clearElements(){
+    ElementProvider.elementBlockMap.clear();
+    ElementProvider.elementBankCategories = [];
+    ElementProvider.elementTypesMap.clear();
+    ElementProvider.elementSettingMap.clear();
+    ElementProvider.elementDataObject.clear();
+  }
 }
