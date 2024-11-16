@@ -6,7 +6,7 @@
   >
     <template #header>
       <slot name="header-logo" />
-      <span v-if="showSurveyTitle">{{ survey.title }}</span>
+      <span v-if="showSurveyTitle" class="header-title">{{ survey.title }}</span>
       <t-divider layout="vertical" v-if="showSurveyTitleRightDivider" />
       <slot name="header-left" />
       <div class="header-space" />
@@ -136,7 +136,7 @@ if (props.useDefaultQuestions) {
   --font-size-smaller: 12px;
   --font-color-secondnary: var(--td-text-color-secondary);
   --theme-primary-color: var(--td-brand-color);
-  --header-height: 27px;
+  --header-height: 48px;
   --header-padding-top: 7px;
   --header-padding-bottom: 7px;
 
@@ -146,6 +146,10 @@ if (props.useDefaultQuestions) {
   letter-spacing: 0;
 
   .header {
+    &-title {
+      display: inline-block;
+    }
+
     &-space {
       flex-grow: 1;
     }

@@ -33,13 +33,15 @@ const props = defineProps<{
   background-color: var(--background-color);
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: hidden;
 
   .builder-header {
     display: flex;
     flex-direction: row;
+    justify-content: stretch;
     align-items: center;
     height: var(--header-height);
+    box-sizing: border-box;
     padding: var(--header-padding-top) var(--space-3) var(--header-padding-bottom);
     background-color: white;
     border-bottom: 1px solid #eff1f4;
@@ -50,9 +52,9 @@ const props = defineProps<{
     flex-grow: 1;
     display: flex;
     width: 100%;
-    min-height: fit-content;
-    overflow-x: auto;
-    align-items: stretch;
+    height: 0;
+    overflow-y: auto;
+    flex-direction: row;
 
     .left-side {
       width: 250px;
@@ -61,13 +63,13 @@ const props = defineProps<{
       padding: var(--space-3);
       border-left: 1px solid #eff1f4;
       border-right: 1px solid #eff1f4;
+      overflow-y: auto;
     }
 
     .content {
       flex-grow: 1;
       padding: var(--space-4) var(--space-4) var(--space-2);
       overflow-y: scroll;
-      box-sizing: border-box;
       min-width: 640px;
     }
 
@@ -78,6 +80,7 @@ const props = defineProps<{
       border-left: 1px solid #eff1f4;
       border-right: 1px solid #eff1f4;
       padding: var(--space-3);
+      overflow-y: auto;
     }
   }
 }
