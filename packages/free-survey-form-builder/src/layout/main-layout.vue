@@ -30,7 +30,7 @@ const props = defineProps<{
   height: 100%;
   width: 100%;
   max-height: 100vh;
-  background-color: var(--background-color);
+  background-color: var(--td-bg-color-secondarycontainer);
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
@@ -43,9 +43,8 @@ const props = defineProps<{
     height: var(--header-height);
     box-sizing: border-box;
     padding: var(--header-padding-top) var(--space-3) var(--header-padding-bottom);
-    background-color: white;
-    border-bottom: 1px solid #eff1f4;
-    border-top: 1px solid #eff1f4;
+    background-color: var(--td-bg-color-container);
+    border-bottom: 1px solid var(--td-component-border);
   }
 
   .builder-body {
@@ -59,26 +58,24 @@ const props = defineProps<{
     .left-side {
       width: 250px;
       flex-shrink: 0;
-      background-color: white;
+      background-color: var(--td-bg-color-container);
       padding: var(--space-3);
-      border-left: 1px solid #eff1f4;
-      border-right: 1px solid #eff1f4;
+      border-right: 1px solid var(--td-component-border);
       overflow-y: auto;
     }
 
     .content {
       flex-grow: 1;
       padding: var(--space-4) var(--space-4) var(--space-2);
-      overflow-y: scroll;
+      overflow-y: auto;
       min-width: 640px;
     }
 
     .right-side {
       width: 280px;
       flex-shrink: 0;
-      background-color: white;
-      border-left: 1px solid #eff1f4;
-      border-right: 1px solid #eff1f4;
+      background-color: var(--td-bg-color-container);
+      border-left: 1px solid var(--td-component-border);
       padding: var(--space-3);
       overflow-y: auto;
     }

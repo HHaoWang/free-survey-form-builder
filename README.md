@@ -73,6 +73,11 @@ const survey = ref(new Survey());
 </script>
 ```
 
+
+### 深色模式
+
+请参考[TDesgin深色模式配置](https://tdesign.tencent.com/vue-next/dark-mode)。
+
 ## 结构说明
 
 ### 总体布局

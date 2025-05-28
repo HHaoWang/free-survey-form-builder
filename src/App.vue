@@ -13,6 +13,7 @@ import { ref } from 'vue';
 import { Survey } from 'free-survey-core';
 import { Button as TButton, DialogPlugin } from 'tdesign-vue-next';
 import { FreeSurveyFormBuilder } from '../packages';
+import { useThemeMode } from './scripts/themeMode';
 
 const survey = ref(new Survey());
 const exportSurvey = () => {
@@ -24,6 +25,8 @@ const exportSurvey = () => {
     });
   });
 };
+
+useThemeMode();
 </script>
 
 <style lang="less">

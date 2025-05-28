@@ -56,6 +56,7 @@ const questionTypeGroups: Array<AddableQuestionTypeCategory> =
   .title {
     line-height: 2em;
     margin-bottom: var(--space);
+    color: var(--td-text-color-primary);
   }
   .options {
     width: 208px;
@@ -68,7 +69,6 @@ const questionTypeGroups: Array<AddableQuestionTypeCategory> =
     }
 
     .option {
-      --td-bg-color-component: var(--background-color);
       width: 100px;
       margin-right: var(--space);
       margin-bottom: var(--space);

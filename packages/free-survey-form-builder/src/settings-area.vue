@@ -10,6 +10,10 @@
         <div class="setting-item-title">组件类型</div>
         <div class="setting-item-value">{{ elementTypeName }}</div>
       </div>
+      <div class="setting-item">
+        <div class="setting-item-title">组件ID</div>
+        <div class="setting-item-value">{{ currentElement.id }}</div>
+      </div>
       <t-divider />
       <component
         :is="ElementProvider.provideElementSetting(currentElement)"
@@ -54,10 +58,10 @@ const elementTypeName = computed(() => {
 <style lang="less" scoped>
 .setting-area {
   height: 100%;
-  --td-brand-color: var(--theme-primary-color);
   user-select: none;
   display: flex;
   flex-direction: column;
+  color: var(--td-text-color-primary);
 
   .title {
     line-height: 2em;
@@ -86,5 +90,24 @@ const elementTypeName = computed(() => {
       font-size: var(--font-size-small);
     }
   }
+
+  .setting-item {
+  display: flex;
+  align-items: start;
+  margin-bottom: var(--space);
+
+  .setting-item-title {
+    flex: 0 0 6em;
+    line-height: 24px;
+  }
+
+  .setting-item-value {
+    flex: 1;
+    display: flex;
+    line-height: 24px;
+    align-items: center;
+    user-select: text;
+  }
+}
 }
 </style>

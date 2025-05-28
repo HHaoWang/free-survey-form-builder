@@ -148,6 +148,7 @@ if (props.useDefaultQuestions) {
   .header {
     &-title {
       display: inline-block;
+      color: var(--td-text-color-primary);
     }
 
     &-space {
@@ -181,7 +182,7 @@ if (props.useDefaultQuestions) {
 
 ::-webkit-scrollbar {
   width: 12px;
-  background: var(--background-color);
+  background: var(--td-scroll-track-color);
 }
 
 ::-webkit-scrollbar-thumb {
