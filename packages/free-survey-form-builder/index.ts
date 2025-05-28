@@ -20,6 +20,7 @@ export { SingleTextQuestionPlugin } from './src/elements/single-text-question';
 export { RadioGroupQuestionPlugin } from './src/elements/radio-group-question';
 export { DropdownQuestionPlugin } from './src/elements/dropdown-question';
 export { CheckBoxQuestionPlugin } from './src/elements/check-box-question';
+export { FileQuestionPlugin } from './src/elements/file-question';
 export { SplitterPlugin } from './src/elements/splitter';
 export type {
   QuestionPlugin,

@@ -7,6 +7,7 @@ export {
   PageBlockPlugin,
   DropdownQuestionPlugin,
   CheckBoxQuestionPlugin,
+  FileQuestionPlugin,
   SplitterPlugin,
   ElementProvider
 } from './free-survey-form-builder';

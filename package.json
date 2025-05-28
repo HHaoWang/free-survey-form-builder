@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.13",
-    "free-survey-core": "^1.5.0",
+    "free-survey-core": "^1.5.1",
     "lodash": "^4.17.21",
     "mitt": "^3.0.1",
     "tdesign-icons-vue-next": "^0.3.6",
